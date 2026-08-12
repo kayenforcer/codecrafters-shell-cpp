@@ -73,8 +73,8 @@ int main()
             bool found = false;
             if (res == 0)
             {
-              found = true;
               std::cout << arg << " is " << entirepath << "\n";
+              found = true;
               break;
             }
             if (!found)
