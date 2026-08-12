@@ -56,9 +56,9 @@ int main()
         const char *pathvar_env = std::getenv("PATH");
         if (pathvar_env != nullptr)
         {
-          std::string pathvar(pathvar_env);
-          std::stringstream ss(pathvar);
-          std::string token;
+          std::string pathvar(pathvar_env); // po prostu deklaracja tego jako string bo wczesniej byl char
+          std::stringstream ss(pathvar); // czyta z pathvar strumien, przeksztalca do odczytu dla getline
+          std::string token; // token jest nadpisywany ścieżką do pojawienia sie delimitera, potem od nowa
           char delimiter = ':';
           bool found = false;
 
@@ -67,11 +67,11 @@ int main()
             paths.push_back(token);
           }
 
-          for (const std::string &dir : paths)
+          for (const std::string &dir : paths) // petla for taka jak w pythonie jest np for path in paths
           {
-            std::string entirepath = dir + "/" + arg;
-            int res = access(entirepath.c_str(), X_OK);
-            if (res == 0)
+            std::string entirepath = dir + "/" + arg; // zapisuje cala sciezke dodajac na jej koniec argument (podany)
+            int res = access(entirepath.c_str(), X_OK); //funkcja z C, c_str() konwertuje to zeby bylo dla odczytu dla funkcji z C, X_OK - sprawdz czy ma prawo wykonac (wiele takich jest w <unistd.h>)
+            if (res == 0) // access daje 0 lub -1, 0 oznacza ze znaelziono dostep
             {
               std::cout << arg << " is " << entirepath << "\n";
               found = true;
