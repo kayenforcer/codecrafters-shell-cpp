@@ -6,18 +6,18 @@ int main()
   std::cout << std::unitbuf;
   std::cerr << std::unitbuf;
 
-  std::cout << "$ ";
-
-  std::string command;
-  std::getline(std::cin, command);
-
-  while (command != "exit")
+  while (true)
   {
     std::cout << "$ ";
 
-    std::string command;
-    std::getline(std::cin, command);
+    std::string input;
+    std::getline(std::cin, input);
 
-    std::cout << command << ": command not found\n";
+    if (input == "exit")
+    {
+      break;
+    }
+
+    std::cout << input << ": command not found\n";
   }
 }
