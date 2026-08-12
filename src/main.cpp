@@ -70,18 +70,19 @@ int main()
           {
             std::string entirepath = dir + "/" + arg;
             int res = access(entirepath.c_str(), X_OK);
+            bool found = false;
             if (res == 0)
             {
+              found = true;
               std::cout << arg << " is " << entirepath << "\n";
-            }
-            else
-            {
               break;
+            }
+            if (!found)
+            {
+              std::cout << arg << ": not found\n";
             }
           }
         }
-
-        // std::cout << arg << ": not found\n";
       }
     }
     else
