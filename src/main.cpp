@@ -60,6 +60,7 @@ int main()
           std::stringstream ss(pathvar);
           std::string token;
           char delimiter = ':';
+          bool found = false;
 
           while (std::getline(ss, token, delimiter))
           {
@@ -70,7 +71,6 @@ int main()
           {
             std::string entirepath = dir + "/" + arg;
             int res = access(entirepath.c_str(), X_OK);
-            bool found = false;
             if (res == 0)
             {
               std::cout << arg << " is " << entirepath << "\n";
