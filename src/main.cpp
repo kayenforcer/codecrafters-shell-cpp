@@ -77,10 +77,10 @@ int main()
               found = true;
               break;
             }
-            if (!found)
-            {
-              std::cout << arg << ": not found\n";
-            }
+          }
+          if (!found)
+          {
+            std::cout << arg << ": not found\n";
           }
         }
       }
