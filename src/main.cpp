@@ -32,33 +32,44 @@ int main()
     std::string input;
     std::getline(std::cin, input);
 
-    if (input == "exit")
+    std::string cmd;
+    std::string args;
+    size_t space_pos = input.find(' ');
+    if (space_pos != std::string::npos)
+    {
+      cmd = input.substr(0, space_pos);
+      args = input.substr(space_pos + 1);
+    }
+    else
+    {
+      cmd = input;
+      args = "";
+    }
+
+    if (cmd == "exit")
     {
       break;
     }
-    else if (input.substr(0, 5) == "echo ")
+    else if (cmd == "echo")
     {
-      std::string arg = input.substr(5);
-      std::cout << arg << "\n";
+      std::cout << args << "\n";
     }
-    else if (input.substr(0, 5) == "type ")
+    else if (cmd == "type")
     {
-      std::string arg = input.substr(5);
-
-      if (std::find(builtins.begin(), builtins.end(), arg) != builtins.end()) // niepewna linijka sprawdz potem
+      if (std::find(builtins.begin(), builtins.end(), args) != builtins.end()) // niepewna linijka sprawdz potem
       {
-        std::cout << arg << " is a shell builtin\n";
+        std::cout << args << " is a shell builtin\n";
       }
 
-      else // tutaj robimy
+      else // TYPE arg is not shell builtin, check if is avaiable in path
       {
         std::vector<std::string> paths;
         const char *pathvar_env = std::getenv("PATH");
         if (pathvar_env != nullptr)
         {
           std::string pathvar(pathvar_env); // po prostu deklaracja tego jako string bo wczesniej byl char
-          std::stringstream ss(pathvar); // czyta z pathvar strumien, przeksztalca do odczytu dla getline
-          std::string token; // token jest nadpisywany ścieżką do pojawienia sie delimitera, potem od nowa
+          std::stringstream ss(pathvar);    // czyta z pathvar strumien, przeksztalca do odczytu dla getline
+          std::string token;                // token jest nadpisywany ścieżką do pojawienia sie delimitera, potem od nowa
           char delimiter = ':';
           bool found = false;
 
@@ -69,25 +80,25 @@ int main()
 
           for (const std::string &dir : paths) // petla for taka jak w pythonie jest np for path in paths
           {
-            std::string entirepath = dir + "/" + arg; // zapisuje cala sciezke dodajac na jej koniec argument (podany)
-            int res = access(entirepath.c_str(), X_OK); //funkcja z C, c_str() konwertuje to zeby bylo dla odczytu dla funkcji z C, X_OK - sprawdz czy ma prawo wykonac (wiele takich jest w <unistd.h>)
-            if (res == 0) // access daje 0 lub -1, 0 oznacza ze znaelziono dostep
+            std::string entirepath = dir + "/" + args;  // zapisuje cala sciezke dodajac na jej koniec argument (podany)
+            int res = access(entirepath.c_str(), X_OK); // funkcja z C, c_str() konwertuje to zeby bylo dla odczytu dla funkcji z C, X_OK - sprawdz czy ma prawo wykonac (wiele takich jest w <unistd.h>)
+            if (res == 0)                               // access daje 0 lub -1, 0 oznacza ze znaelziono dostep
             {
-              std::cout << arg << " is " << entirepath << "\n";
+              std::cout << args << " is " << entirepath << "\n";
               found = true;
               break;
             }
           }
           if (!found)
           {
-            std::cout << arg << ": not found\n";
+            std::cout << args << ": not found\n";
           }
         }
       }
     }
-    else
+    else // RUNNING EXTERNAL PROGRAM
     {
-      std::cout << input << ": command not found\n";
+      std::cout << cmd << ": command not found\n";
     }
   }
 }
