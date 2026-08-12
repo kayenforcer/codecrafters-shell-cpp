@@ -21,7 +21,9 @@ int main()
     {
       std::cout << input << "\n";
     }
-
-    std::cout << input << ": command not found\n";
+    else
+    {
+      std::cout << input << ": command not found\n";
+    }
   }
 }
