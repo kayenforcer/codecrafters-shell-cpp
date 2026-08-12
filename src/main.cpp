@@ -74,7 +74,7 @@ int main()
 
         }
 
-        std::cout << arg << ": not found\n";
+        // std::cout << arg << ": not found\n";
       }
     }
     else
