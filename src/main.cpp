@@ -45,7 +45,7 @@ int main()
     {
       std::string arg = input.substr(5);
 
-      if (std::find(builtins.begin(), builtins.end(), arg) != builtins.end()) //niepewna linijka sprawdz potem
+      if (std::find(builtins.begin(), builtins.end(), arg) != builtins.end()) // niepewna linijka sprawdz potem
       {
         std::cout << arg << " is a shell builtin\n";
       }
@@ -66,12 +66,19 @@ int main()
             paths.push_back(token);
           }
 
-          for (const std::string &dir : paths) {
+          for (const std::string &dir : paths)
+          {
             std::string entirepath = dir + "/" + arg;
-            access(entirepath.c_str(), X_OK);
+            int res = access(entirepath.c_str(), X_OK);
+            if (res == 0)
+            {
+              std::cout << arg << " is " << entirepath << "\n";
+            }
+            else
+            {
+              break;
+            }
           }
-
-
         }
 
         // std::cout << arg << ": not found\n";
