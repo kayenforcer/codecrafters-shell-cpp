@@ -13,7 +13,6 @@ int main()
     std::string input;
     std::getline(std::cin, input);
 
-    std::string arg = input.substr(5);
     if (input == "exit")
     {
       break;
