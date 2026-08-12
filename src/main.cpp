@@ -17,10 +17,13 @@ int main()
     {
       break;
     }
-    else if (input.substr(0,5) == "echo")
+    else if (input.substr(0,5) == "echo ")
     {
       std::cout << input.substr(5) << "\n";
     }
-   
+    else
+    {
+      std::cout << input << ": command not found\n";
+    }
   }
 }
