@@ -3,11 +3,27 @@
 #include <vector>
 #include <sstream>
 #include <cstdlib>
+#include <algorithm>
+#include <unistd.h>
 
 int main()
 {
   std::cout << std::unitbuf;
   std::cerr << std::unitbuf;
+
+  std::vector<std::string> builtins = {
+      "echo",
+      "cd",
+      "pwd",
+      "export",
+      "unset",
+      "type",
+      "exit",
+      "env",
+      "alias",
+      "unalias",
+      "history",
+      "help"};
 
   while (true)
   {
@@ -29,7 +45,7 @@ int main()
     {
       std::string arg = input.substr(5);
 
-      if (arg == "echo" || arg == "exit" || arg == "type")
+      if (std::find(builtins.begin(), builtins.end(), arg) != builtins.end()) //niepewna linijka sprawdz potem
       {
         std::cout << arg << " is a shell builtin\n";
       }
@@ -49,6 +65,13 @@ int main()
           {
             paths.push_back(token);
           }
+
+          for (const std::string &dir : paths) {
+            std::string entirepath = dir + "/" + arg;
+            access(entirepath.c_str(), X_OK);
+          }
+
+
         }
 
         std::cout << arg << ": not found\n";
