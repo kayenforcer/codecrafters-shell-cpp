@@ -12,25 +12,25 @@ int main()
 
     std::string input;
     std::getline(std::cin, input);
-    std::string arg = input.substr(5);
 
+    std::string arg = input.substr(5);
     if (input == "exit")
     {
       break;
     }
     else if (input.substr(0, 5) == "echo ")
     {
-      std::cout << arg << "\n";
+      std::cout << input.substr(5) << "\n";
     }
-    else if (input.starts_with("type "))
+    else if (input.substr(0, 5) == "type ")
     {
-      if (input.substr(0, 5) == "echo" || input.substr(0, 5) == "exit" || input.substr(0, 5) == "type")
+      if (input.substr(5) == "echo" || input.substr(5) == "exit" || input.substr(5) == "type")
       {
-        std::cout << arg << " is a shell builtin\n";
+        std::cout << input.substr(5) << " is a shell builtin\n";
       }
       else
       {
-        std::cout << arg << ": not found\n";
+        std::cout << input.substr(5) << ": not found\n";
       }
     }
     else
