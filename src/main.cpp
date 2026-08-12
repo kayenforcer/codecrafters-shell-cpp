@@ -17,7 +17,7 @@ int main()
     {
       break;
     }
-    else if (input == "echo")
+    else if (input.substr(0,5) == "echo")
     {
       std::cout << input << "\n";
     }
