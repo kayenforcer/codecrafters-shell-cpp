@@ -24,13 +24,13 @@ int main()
     }
     else if (input.starts_with("type "))
     {
-      if (arg == "echo" || arg == "exit" || arg == "type")
+      if (input.substr(0, 5) == "echo" || input.substr(0, 5) == "exit" || input.substr(0, 5) == "type")
       {
-        std::cout << input.substr(5) << " is a shell builtin\n";
+        std::cout << arg << " is a shell builtin\n";
       }
       else
       {
-        std::cout << input.substr(5) << ": not found\n";
+        std::cout << arg << ": not found\n";
       }
     }
     else
