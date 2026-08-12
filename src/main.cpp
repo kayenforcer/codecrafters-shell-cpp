@@ -12,6 +12,7 @@ int main()
 
     std::string input;
     std::getline(std::cin, input);
+    std::string arg = input.substr(5);
 
     if (input == "exit")
     {
@@ -19,11 +20,11 @@ int main()
     }
     else if (input.substr(0, 5) == "echo ")
     {
-      std::cout << input.substr(5) << "\n";
+      std::cout << arg << "\n";
     }
-    else if (input.substr(0, 5) == "type ")
+    else if (input.starts_with("type "))
     {
-      if (input.substr(5) == "echo" || input.substr(5) == "exit" || input.substr(5) == "type")
+      if (arg == "echo" || arg == "exit" || arg == "type")
       {
         std::cout << input.substr(5) << " is a shell builtin\n";
       }
