@@ -112,9 +112,24 @@ int main()
     }
     else if (cmd == "cd")
     {
-      int ph; // RESULT VALUE OF FUNCTION chdir()
-      ph = chdir(args.c_str()); // METHOD THAT LETS US CHANGE DIR TO GIVEN (args)
-      if (ph == -1) // IF ph == 0 FUNC ELSE ANNOUNCEMENT BELOW
+
+      int rs; // RESULT VALUE OF FUNCTION chdir()
+      if (args == "~")
+      {
+        const char *hdic_env = std::getenv("HOME");
+        if (hdic_env == nullptr)
+        {
+          std::cerr << "cd: HOME not set\n";
+          continue;
+        }
+        std::string hdic(hdic_env);
+        rs = chdir(hdic.c_str());
+      }
+      else
+      {
+        rs = chdir(args.c_str()); // METHOD THAT LETS US CHANGE DIR TO GIVEN (args)
+      }
+      if (rs == -1) // IF rs == 0 FUNC ELSE ANNOUNCEMENT BELOW
       {
         std::cout << cmd << ": " << args << ": No such file or directory\n";
       }
