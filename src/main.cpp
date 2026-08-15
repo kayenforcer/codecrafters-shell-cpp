@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <filesystem>
 #include <sys/wait.h>
-namesapce fs = std::filesystem;
+namespace fs = std::filesystem;
 
 std::string pathWork(const std::string &cmd_name)
 {
