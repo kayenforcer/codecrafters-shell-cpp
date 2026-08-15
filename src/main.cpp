@@ -5,7 +5,9 @@
 #include <cstdlib>
 #include <algorithm>
 #include <unistd.h>
+#include <filesystem>
 #include <sys/wait.h>
+namesapce fs = std::filesystem;
 
 std::string pathWork(const std::string &cmd_name)
 {
@@ -103,6 +105,9 @@ int main()
           std::cout << args << ": not found\n";
         }
       }
+    }
+    else if (cmd == "pwd") {
+      std::cout<< fs::current_path().string() << "\n";
     }
     else // RUNNING EXTERNAL PROGRAM
     {
