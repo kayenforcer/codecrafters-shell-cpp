@@ -106,9 +106,20 @@ int main()
         }
       }
     }
-    else if (cmd == "pwd") {
-      std::cout<< fs::current_path().string() << "\n";
+    else if (cmd == "pwd")
+    {
+      std::cout << fs::current_path().string() << "\n";
     }
+    else if (cmd == "cd")
+    {
+      int ph; // RESULT VALUE OF FUNCTION chdir()
+      ph = chdir(args.c_str()); // METHOD THAT LETS US CHANGE DIR TO GIVEN (args)
+      if (ph == -1) // IF ph == 0 FUNC ELSE ANNOUNCEMENT BELOW
+      {
+        std::cout << cmd << ": " << args << ": No such file or directory\n";
+      }
+    }
+
     else // RUNNING EXTERNAL PROGRAM
     {
       std::vector<std::string> argus; // VECTOR THAT CONTAINS SINGLE ARGUMENTS GIVEN IN INPUT
